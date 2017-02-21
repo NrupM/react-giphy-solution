@@ -1,3 +1,7 @@
 .Search-form > input {
   font-size: large;
 }
+
+.Search {
+  border: 3px solid red;
+}

@@ -1,10 +1,6 @@
 .Home {
   text-align: center;
-}
-
-.Home-logo {
-  animation: Home-logo-spin infinite 20s linear;
-  height: 80px;
+  border: 3px solid grey;
 }
 
 .Home-header {
@@ -12,13 +8,4 @@
   height: 150px;
   padding: 20px;
   color: white;
-}
-
-.Home-intro {
-  font-size: large;
-}
-
-@keyframes Home-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
