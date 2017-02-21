@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import './SearchContainer.css';
 import Search from './Search';
 import Results from './Results';
@@ -10,7 +11,7 @@ const searchGifs = (query) => {
 
   // fetch all gifs matching the passed in phrase
   return $.getJSON(searchUrl+term).then((response) =>
-    response["Search"]
+    response['data']
   )
 };
 
@@ -31,18 +32,13 @@ class SearchContainer extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(`searched! ${this.state.query}`);
-    searchGifs(this.state.query).then((response) => {
-      console.log(response);
-    //   // redefine our app's state to include populated response
-    //   this.setState({
-    //     results: movies,
-    //     query: "",
-    //     searched: true // flip the switch
-    //   })
-    });
-    this.setState({
-      searched: true,
-      results: searchResponse.data
+    searchGifs(this.state.query).then((gifs) => {
+      console.log('gifs from search resposne', gifs);
+      // redefine our app's state to include populated response
+      this.setState({
+        results: gifs,
+        searched: true // flip the switch
+      });
     });
   }
 
