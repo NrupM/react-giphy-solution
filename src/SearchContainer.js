@@ -8,7 +8,8 @@ class SearchContainer extends Component {
     super()
     this.state = {
       query: '',
-      searched: false
+      searched: false,
+      results: []
     }
   }
 
@@ -19,10 +20,6 @@ class SearchContainer extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(`searched! ${this.state.query}`);
-    this.setState({searched: true});
-  }
-
-  render() {
     let searchResponse = { "data": [
         {
           "type": "gif",
@@ -59,25 +56,24 @@ class SearchContainer extends Component {
         "offset": 0
       }
     };
-    if (this.state.searched) {
-      return (
-        <div className="SearchContainer">
-          <Results
-            searchResults={searchResponse.data}
-          />
-        </div>
-      );
-    } else {
-      return (
-        <div className="SearchContainer">
-          <Search
-            handleSubmit={(event) => this.handleSubmit(event)}
-            handleChange={(event) => this.handleChange(event)}
-            query={this.state.query}
-          />
-        </div>
-      );
-    }
+    this.setState({
+      searched: true,
+      results: searchResponse.data
+    });
+  }
+  render() {
+    return (
+      <div className="SearchContainer">
+        <Search
+          handleSubmit={(event) => this.handleSubmit(event)}
+          handleChange={(event) => this.handleChange(event)}
+          query={this.state.query}
+        />
+        <Results
+          searchResults={this.state.results}
+        />
+      </div>
+    );
   }
 }
 
