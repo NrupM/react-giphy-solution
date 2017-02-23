@@ -6,13 +6,22 @@ import Results from './Results';
 
 const searchGifs = (query) => {
   // http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=dc6zaTOxFJmzC
-  const searchUrl = "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=";
-  let term = query.replace(/\s/, "+"); // replace any spaces with a "+"
+  const giphyApi = {
+    baseUrl: 'http://api.giphy.com',
+    searchEndpoint: '/v1/gifs/search',
+    publicApiKey: 'dc6zaTOxFJmzC'
+  }
 
-  // fetch all gifs matching the passed in phrase
-  return $.getJSON(searchUrl+term).then((response) =>
+  return $.ajax({
+    url: giphyApi.baseUrl + giphyApi.searchEndpoint,
+    method: 'GET',
+    data: {
+      api_key: giphyApi.publicApiKey,
+      q: query
+    }
+  }).then((response) =>
     response['data']
-  )
+  );
 };
 
 class SearchContainer extends Component {
